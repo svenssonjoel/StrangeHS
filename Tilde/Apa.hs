@@ -70,7 +70,7 @@ instance Do B where
 
 -- p is a converter from a Cepa to a Bepa.
 -- Here a t is magically dreamt up (that needs to be
--- locked down by the programmer at some point
+-- locked down by the programmer at some point)
 p :: Cepa a -> Bepa t a
 p (Cepa a _) = Bepa a
 

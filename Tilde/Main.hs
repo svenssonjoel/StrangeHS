@@ -1,5 +1,3 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-
 
 -- ghc --make Main.hs
 
@@ -21,5 +19,5 @@ q' = test tCepa
 tCepa :: Cepa Int
 tCepa = Cepa 1 "hej"
 
-main = putStrLn $ show q  ++ " \n " ++
+main = putStrLn $ show q  ++ "\n" ++
                   show q'
