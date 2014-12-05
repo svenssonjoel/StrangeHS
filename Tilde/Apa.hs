@@ -2,6 +2,7 @@
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE CPP #-}
 
 module Apa where
 
@@ -28,7 +29,7 @@ data Cepa a = Cepa a String
 -- in of Do. 
 
 class C t a where
-  cFun :: a e -> Apa t (Cepa e) 
+  cFun :: forall e . a e -> Apa t (Cepa e) 
 
 
 instance Do t => C t Cepa where
@@ -39,14 +40,17 @@ instance Do t => C t Cepa where
 ------------------------------------------------------------
 -- VARY THIS PART
 ------------------------------------------------------------
-  
--- Does not compile with this
---instance Do t => C t (Bepa t) where
---  cFun = apaBepa
 
+#if 1
+-- Does not compile with this
+instance Do t => C t (Bepa t) where
+  cFun = apaBepa
+
+#else 
 -- Compiles with this 
 instance (t ~ t1, Do t) => C t (Bepa t1) where
   cFun = apaBepa
+#endif
 
 ------------------------------------------------------------
 --

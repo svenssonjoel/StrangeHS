@@ -1,12 +1,15 @@
-
+{-# LANGUAGE ScopedTypeVariables #-}
 -- ghc --make Main.hs
 
 module Main where
 
 import Apa
 
-test :: (Do t, Num a) => Cepa a -> Apa t (Cepa a) 
-test a = cFun $ p a
+test :: forall t e . (Do t, Num e) => Cepa e -> Apa t (Cepa e) 
+test a = cFun x
+ where
+   x :: Bepa t e
+   x = p a
 
 
 q :: Apa A (Cepa Int)
