@@ -41,16 +41,40 @@ instance Do t => C t Cepa where
 -- VARY THIS PART
 ------------------------------------------------------------
 
-#if 1
+#if 0
 -- Does not compile with this
 instance Do t => C t (Bepa t) where
   cFun = apaBepa
+
+-- Starting to see a difference here.
+-- If the instance is defined as above, you can also
+-- have this instance (below):
+instance C A (Bepa B) where
+  cFun = undefined 
+
+-- but with the other definition of the instance (below)
+-- the C A (Bepa B) instance is a conflict (overlapping instances) 
+  
 
 #else 
 -- Compiles with this 
 instance (t ~ t1, Do t) => C t (Bepa t1) where
   cFun = apaBepa
+
+-- conflicting instance (overlapping!) 
+--instance C A (Bepa B) where
+--  cFun = undefined 
+
 #endif
+
+{- Questions:
+  #1 does (t ~ t1) above read "it is enough to know
+     what one of t and t1 is to decide"
+  #2 if (t ~ t1) reads "if t is equal to t1 then this is instance is applicable",
+     Then I dont see how this works.
+
+-} 
+
 
 ------------------------------------------------------------
 --
