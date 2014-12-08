@@ -84,11 +84,10 @@ instance (t ~ t1, Do t) => C t (Bepa t1) where
   # Left to be answered is what happens in the "test" function
     in module Main. It seems to mysteriously making a decision
     about the type of "x" without proper guidance, is this because
-    the typechecker nows that test/x will only pass typechecking
+    the typechecker knows that test/x will only pass typechecking
     if the t parameters match up ? 
 
 -} 
-
 
 ------------------------------------------------------------
 --
