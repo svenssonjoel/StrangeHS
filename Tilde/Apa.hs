@@ -73,6 +73,20 @@ instance (t ~ t1, Do t) => C t (Bepa t1) where
   #2 if (t ~ t1) reads "if t is equal to t1 then this is instance is applicable",
      Then I dont see how this works.
 
+  Answer:
+   # The key to this is that the typechecker matches
+     against the "head" of the instance (C t Bepa t1)
+     not the constraint (t ~ t1).
+     So that means things like C A (Bepa B) will match,
+     but lead to a type error because of the (t ~ t1) constraint,
+     rather than a "no instance for X " error.
+
+  # Left to be answered is what happens in the "test" function
+    in module Main. It seems to mysteriously making a decision
+    about the type of "x" without proper guidance, is this because
+    the typechecker nows that test/x will only pass typechecking
+    if the t parameters match up ? 
+
 -} 
 
 
