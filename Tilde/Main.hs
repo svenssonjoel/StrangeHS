@@ -7,13 +7,13 @@ module Main where
 import Apa
 
 #if 0 
-test :: forall t e . (Do t, Num e) => Cepa e -> Apa t (Cepa e) 
+test :: forall t e . Do t => Cepa e -> Apa t (Cepa e) 
 test a = cFun x
  where
    x :: Bepa t e
    x = p a
 #else 
-test :: (Do t, Num e) => Cepa e -> Apa t (Cepa e) 
+test :: Do t => Cepa e -> Apa t (Cepa e) 
 test a = cFun x
  where
    x = p a
