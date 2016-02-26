@@ -5,16 +5,7 @@
 module Main where
 
 import Data.Traversable
-
-
-
-data Expr = Expr (Exp Expr) 
-
-data Exp s = I Int
-           | Add s s
-           | Sub s s
-           | Mul s s
-             deriving (Foldable, Functor, Traversable)
+ (Foldable, Functor, Traversable)
 
 instance Num Expr where  
   (+) a b = Expr (Add a b)
