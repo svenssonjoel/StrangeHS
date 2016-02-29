@@ -5,7 +5,16 @@
 module Main where
 
 import Data.Traversable
- (Foldable, Functor, Traversable)
+       
+
+data Expr = Expr (Exp Expr) 
+
+data Exp s = Add s s
+           | Sub s s
+           | Mul s s
+           | I Int 
+  
+       deriving (Foldable, Functor, Traversable)
 
 instance Num Expr where  
   (+) a b = Expr (Add a b)
@@ -18,7 +27,7 @@ instance Num Expr where
 
 adds :: Expr -> Int
 adds (Expr e) = foldl isAdd 0 e
-  where isAdd sum (Expr (Add _ _)) = sum + 1
+  where isAdd sum (Expr (Add s1 s2)) = sum + 1
         isAdd sum _ = sum 
 
 
@@ -46,6 +55,20 @@ test2 = 1 * 2 + 3 - 1 + 2 + 3 + 4 - 2
 
 
 
+
+
+
+type Expr' = Mu Exp
+data Mu f = In (f (Mu f))
+
+fold :: Functor f => (f a -> a) -> Mu f -> a
+fold f (In m) = f (fmap (fold f) m)
+
+adds'' e = fold addHelp e
+  where addHelp (Add s1 s2) = s1 + s2 + 1
+        addHelp (Sub s1 s2) = s1 + s2
+        addHelp (Mul s1 s2) = s1 + s2
+        addHelp (I _)       = 0
 
 
 foldExp :: (a -> Exp Expr -> a) -> a -> Exp Expr ->  a
